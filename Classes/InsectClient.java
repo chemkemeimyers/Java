@@ -17,5 +17,9 @@ public class InsectClient{
         System.out.println(bug2.getX());
         System.out.println(bug2.getY());
         System.out.println("Insect population: " + Insect.getPopulation());
+
+        Insect bug3  = new Insect(99);
+        System.out.println(bug3.toString());
+        System.out.println("Insect population: " + Insect.getPopulation());
     }
 }

@@ -20,11 +20,11 @@ public class Insect{
     {
         this(initWeight, DEFAULT_X, DEFAULT_Y);
     }
-    public Insect(double initWeight, int initX, int initY)
+    public Insect(double weight, int x, int y)
     {
-        weight = initWeight;
-        x = initX;
-        y = initY;
+        this.weight = weight;
+        this.x = x;
+        this.y = y;
         population+=1;
     }
 
@@ -83,19 +83,19 @@ public class Insect{
     {
         return x;
     }
-    public void setX(int newX)
+    public void setX(int x)
     {
-        if(isLegalNewX(newX))
-            x = newX;
+        if(isLegalNewX(x))
+            this.x = x;
     }
     public int getY()
     {
         return y;
     }
-    public void setY(int newY)
+    public void setY(int y)
     {
-        if(isLegalNewX(newY))
-            y = newY;
+        if(isLegalNewX(y))
+            this.y = y;
     }
     public static int getPopulation()
     {
@@ -108,5 +108,9 @@ public class Insect{
     public static boolean isLegalNewY(int newY)
     {
         return newY >= 0;
+    }
+    public String toString()
+    {
+        return "weight: " + weight + ", x :" + x + ", y: " + y;
     }
 }
