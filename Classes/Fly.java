@@ -2,8 +2,8 @@ public class Fly
 {
     private double mass;
     private double speed;
-    private static final double DEFAULT_SPEED = 10;
-    private static final double DEFAULT_MASS = 5;
+    private static double DEFAULT_SPEED = 10;
+    private static double DEFAULT_MASS = 5;
 
     public Fly(double mass)
     {
