@@ -19,11 +19,7 @@ public class Frog
     }
     public Frog(String name, double ageInYears, double tongueSpeed)
     {
-        this.name = name;
-        this.age = (int) ageInYears * 12;
-        this.tongueSpeed = tongueSpeed;
-        this.isFroglet = age > 1 && age < 7;
-        this.species = DEFAULT_SPECIES;
+        this(name,(int) (ageInYears * 12),tongueSpeed);
     }
     public Frog(String name)
     {
@@ -35,10 +31,9 @@ public class Frog
         this.age = this.age + numMonths;
 
         double changeInSpeed; 
-        if(this.age<=12)
+        if((12-originalAge) > 0)
         {
-            changeInSpeed= this.age <= 12 ? this.age - originalAge : 12 - originalAge;
-            this.tongueSpeed = this.tongueSpeed + changeInSpeed;
+            this.tongueSpeed = this.tongueSpeed + (12-originalAge);
         }
         if(this.age>=30)
         {
@@ -94,9 +89,9 @@ public class Frog
     {
         String resultString;
         if(this.isFroglet)
-            resultString = "My name is " + this.name + "and I’m a rare froglet! I’m " +  this.age +" months old and my tongue has a speed of " + String.format("%.2f", this.tongueSpeed)+".";
+            resultString = "My name is " + this.name + " and I'm a rare froglet! I'm " +  this.age +" months old and my tongue has a speed of " + String.format("%.2f", this.tongueSpeed)+".";
         else
-            resultString = "My name is " + this.name + " and I’m a rare frog. I’m " + this.age +" months old and my tongue has a speed of " + String.format("%.2f", this.tongueSpeed) + ".";
+            resultString = "My name is " + this.name + " and I'm a rare frog. I'm " + this.age +" months old and my tongue has a speed of " + String.format("%.2f", this.tongueSpeed) + ".";
         return resultString;
     }
     public String getName()

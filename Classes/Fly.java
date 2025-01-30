@@ -30,7 +30,7 @@ public class Fly
     }
     public void setMass(double mass)
     {
-        if(mass > 0)
+        if(mass >= 0)
             this.mass = mass;
     }
     public void setSpeed(double speed)
@@ -40,23 +40,26 @@ public class Fly
     }
     public String toString()
     {
-        if(this.mass == 0)
-            return "I’m dead, but I used to be a fly with a speed of " + this.speed + ".";
+        if(this.isDead())
+            return "I'm dead, but I used to be a fly with a speed of " +  String.format("%.2f", this.speed) + ".";
         else
-            return "I’m a speedy fly with " + this.speed +" speed and " + this.mass +" mass";
+            return "I'm a speedy fly with " +  String.format("%.2f", this.speed) +" speed and " +  String.format("%.2f", this.mass) +" mass.";
     }
     public void grow(int addedMass)
     {
         double originalMass = this.mass;
         this.mass = this.mass + addedMass;
         double changeInSpeed;
-        if(this.mass < 20)
-            changeInSpeed = this.mass - originalMass;
-        else
-            changeInSpeed = -0.5 * (this.mass - 20);
-        
-
-        this.speed = this.speed + changeInSpeed;
+        if(originalMass < 20 && addedMass > 0)
+        {
+            changeInSpeed = this.mass > 20 ? 20 - originalMass: this.mass - originalMass;
+            this.speed+=changeInSpeed;
+        }
+        if(this.mass > 20 && addedMass > 0)
+        {
+            changeInSpeed = -0.5 * (originalMass > 20? addedMass: this.mass-20);
+            this.speed+=changeInSpeed;
+        }
     }
     public boolean isDead()
     {

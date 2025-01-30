@@ -25,5 +25,10 @@ public static void main(String[] args)
     System.out.println(fly2.toString());
     System.out.println(frog1.toString());
     System.out.println(frog4.toString());
+    //debug string below
+    //System.out.println(frog3.toString());
+    frog3.grow(4);
+    System.out.println(frog3.toString());
+    System.out.println(frog2.toString());
 }
 }
