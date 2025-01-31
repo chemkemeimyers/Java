@@ -4,7 +4,7 @@ public class Frog
     private int age;
     private double tongueSpeed;
     private boolean isFroglet;
-    private String species;
+    private static String species;
     private static String DEFAULT_SPECIES = "Rare Pepe";
     private static int DEFAULT_AGE = 5;
     private static double DEFAULT_TONGUESPEED = 5;
@@ -33,11 +33,12 @@ public class Frog
         double changeInSpeed; 
         if((12-originalAge) > 0)
         {
-            this.tongueSpeed = this.tongueSpeed + (12-originalAge);
+            changeInSpeed = (this.age > 12 ? 12-originalAge: this.age-originalAge);
+            this.tongueSpeed += changeInSpeed;
         }
         if(this.age>=30)
         {
-            changeInSpeed= this.age - 30;
+            changeInSpeed= originalAge >= 30 ? (this.age - originalAge) : this.age - 30;
             this.tongueSpeed = (this.tongueSpeed - changeInSpeed) < 5 ? 5: (this.tongueSpeed - changeInSpeed);
         }
 
@@ -47,19 +48,19 @@ public class Frog
     {
         int originalAge = this.age;
         this.age+=1;
+        
         double changeInSpeed; 
-        if(this.age<=12)
+        if((12-originalAge) > 0)
         {
-            changeInSpeed= this.age <= 12 ? this.age - originalAge : 12 - originalAge;
-            this.tongueSpeed = this.tongueSpeed + changeInSpeed;
+            changeInSpeed = (this.age > 12 ? 12-originalAge: this.age-originalAge);
+            this.tongueSpeed += changeInSpeed;
         }
         if(this.age>=30)
         {
-            changeInSpeed= this.age - 30;
+            changeInSpeed= originalAge >= 30 ? (this.age - originalAge) : this.age - 30;
             this.tongueSpeed = (this.tongueSpeed - changeInSpeed) < 5 ? 5: (this.tongueSpeed - changeInSpeed);
         }
-
-         this.isFroglet = age > 1 && age < 7;
+        this.isFroglet = age > 1 && age < 7;
 
     }
     public void eat(Fly food)
