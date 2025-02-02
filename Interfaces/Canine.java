@@ -1,4 +1,4 @@
-public abstract class Canine
+public abstract class Canine implements Groomable
 {
     protected double size;
 
@@ -13,4 +13,5 @@ public abstract class Canine
     }
 
     public abstract void groom();
+
 }
