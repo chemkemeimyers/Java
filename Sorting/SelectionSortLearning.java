@@ -15,9 +15,12 @@ public class SelectionSortLearning{
                         minIndex = currentIndex;
                     }
             }
-            nextSmallest = list[minIndex];
-            list[minIndex] = list[unSortedStart];
-            list[unSortedStart] = nextSmallest;
+            if(minIndex!=unSortedStart)
+            {
+                nextSmallest = list[minIndex];
+                list[minIndex] = list[unSortedStart];
+                list[unSortedStart] = nextSmallest;
+            }
         }
 
     }
