@@ -29,20 +29,30 @@ public class RedAstronaut extends Player implements Impostor{
             //find player with the highest susLevel
             Arrays.sort(players, Comparator.comparingInt(Player::getSusLevel));
             if(players[0].compareTo(players[1]) == 0)
-                return;//take no action
+            {
+                    System.out.println("The most suspisious player with name " + players[0].getName()
+                + " has the susLevel " + players[0].getSusLevel() + " which is similar to the next"
+                + " most suspicious player with name " + players[1].getName() + " which has sus Level"
+                + " " + players[1].getSusLevel() + ". No action will be taken");
+            }
             else if(players[0].equals(this))
-                return;
+            {}
             else 
             {
                 if(players[0].isFrozen())
-                    return;
+                {
+                    System.out.println("Player with name " + players[0].getName() + " has the highest sus Level"
+                    + " of " + players[0].getSusLevel() + ". This is already frozen. No action will be taken");
+                }
                 else
                 {
+                    System.out.println("Player with name " + players[0].getName() + " has the highest sus Level"
+                    + " of " + players[0].getSusLevel() + ". This player will be frozen (voted off)");
                     players[0].setFrozen(true);
                 }
             }
-            gameOver();//A boolean is returned but at the moment we are not doing anything with it
         }
+        gameOver();//A boolean is returned but at the moment we are not doing anything with it
     }
     @Override
     public void freeze(Player P)
@@ -50,20 +60,17 @@ public class RedAstronaut extends Player implements Impostor{
         if(P instanceof Impostor)
         {
             System.out.println("Player with name " + P.getName() +" is an instance of an impostor, the player cannot be frozen");
-            return;
         }
-        if(this.isFrozen() && this instanceof Impostor)
+        else if(this.isFrozen() && this instanceof Impostor)
         {
             System.out.println("This player with name  " + this.getName() +" is an instance of an impostor, that is frozen."
             + " no action will be taken");
-            return;
         }
-        if(P.isFrozen())
+        else if(P.isFrozen())
         {
             System.out.println("Player with name " + P.getName() +" is already frozen, no action is taken");
-            return;
         }
-        if(this.compareTo(P) < 0)
+        else if(this.compareTo(P) < 0)
         {
             System.out.println("This Red Astraunaut with name " + this.getName() + " has susLevel " + this.getSusLevel() + " which "
              + "is lower than player with name " + P.getName() + ". Player with higher susLevel will be frozen");
@@ -83,20 +90,17 @@ public class RedAstronaut extends Player implements Impostor{
         if(P instanceof Impostor)
         {
             System.out.println("Player with name " + P.getName() +" is an instance of an impostor, the player cannot be sabotaged");
-            return;
         }
-        if(this.isFrozen() && this instanceof Impostor)
+        else if(this.isFrozen() && this instanceof Impostor)
         {
             System.out.println("This player with name  " + this.getName() +" is an instance of an impostor, that is frozen."
             + " . They cannot perform sabotage actions.");
-            return;
         }
-        if(P.isFrozen())
+        else if(P.isFrozen())
         {
             System.out.println("Player with name " + P.getName() +" is already frozen, they cannot be sabotaged.");
-            return;
         }
-        if(this.getSusLevel() < 20)
+        else if(this.getSusLevel() < 20)
         {
             System.out.println("This Red Astraunaut with name " + this.getName() + " has susLevel " + this.getSusLevel() + " which "
              + "is less than 20. Through shifty maneuvers and cunning words, they are able to increase the Crewmate’s susLevel by 50%.");
@@ -115,12 +119,21 @@ public class RedAstronaut extends Player implements Impostor{
     @Override
     public boolean equals(Object o) 
     {
-    if (o instanceof RedAstronaut) {
-        RedAstronaut player = (RedAstronaut) o;
-        return this.getName().equals(player.getName()) && this.isFrozen() == player.isFrozen()
-                && this.getSusLevel() == player.getSusLevel() && this.skill.equals(player.skill);
+        if (o instanceof RedAstronaut) {
+            RedAstronaut player = (RedAstronaut) o;
+            return this.getName().equals(player.getName()) && this.isFrozen() == player.isFrozen()
+                    && this.getSusLevel() == player.getSusLevel() && this.skill.equals(player.skill);
+        }
+        return false;
     }
-    return false;
+    @Override
+    public String toString() 
+    {
+        String result = super.toString() + " I am an " + this.getSkill() + " player!";
+        if(this.getSusLevel() > 15)
+            return result.toUpperCase();
+        else
+            return result;
     }
 
     public String getSkill()
@@ -134,15 +147,5 @@ public class RedAstronaut extends Player implements Impostor{
             this.skill = skill;
         else
             System.out.println("Invalid skill level. Must be one of " + VALID_SKILL_LEVEL);
-    }
-
-    @Override
-    public String toString() 
-    {
-    String result = super.toString() + " I am an " + this.getSkill() + " player!";
-    if(this.getSusLevel() > 15)
-        return result.toUpperCase();
-    else
-        return result;
     }
 }
