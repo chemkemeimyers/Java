@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class BlueAstronaut extends Player implements Crewmate{
     private int numTasks;
@@ -20,30 +19,46 @@ public class BlueAstronaut extends Player implements Crewmate{
     public void emergencyMeeting()
     {
         if(!this.isFrozen())
-        {
-            //find player with the highest susLevel
-            Arrays.sort(players, Comparator.comparingInt(Player::getSusLevel));
-            if(players[0].compareTo(players[1]) == 0)
+        {             //find player with the highest susLevel
+            //Find players that are not frozen
+            Player mostSuspicious = null;
+            Player nextMostSuspicious = null;
+           
+
+            Arrays.sort(players);
+            while(mostSuspicious == null)
             {
-                System.out.println("The most suspisious player with name " + players[0].getName()
-                + " has the susLevel " + players[0].getSusLevel() + " which is similar to the next"
-                + " most suspicious player with name " + players[1].getName() + " which has sus Level"
-                + " " + players[1].getSusLevel() + ". No action will be taken");
+                for(int i = players.length-1;i>=0; i--)
+                {
+                    if(!players[i].equals(this) && !players[i].isFrozen())
+                    {
+                        mostSuspicious = players[i];
+                    }
+                    if(mostSuspicious!=null)
+                        break;
+                }
+            }
+            while(nextMostSuspicious == null)
+            {
+                for(int i = players.length-1;i>=0; i--)
+                {
+                    if(!players[i].equals(this) && !players[i].isFrozen() && !players[i].equals(mostSuspicious))
+                    {
+                        nextMostSuspicious = players[i];
+                    }
+                    if(nextMostSuspicious!=null)
+                        break;
+                }
+            }
+
+            if(mostSuspicious.compareTo(nextMostSuspicious) == 0)
+            {
+               
             }
             else 
             {
-                if(players[0].isFrozen())
-                {
-                    System.out.println("Player with name " + players[0].getName() + " has the highest sus Level"
-                    + " of " + players[0].getSusLevel() + ". This is already frozen. No action will be taken");
-                }
-                else
-                {
-                    System.out.println("Player with name " + players[0].getName() + " has the highest sus Level"
-                    + " of " + players[0].getSusLevel() + ". This player will be frozen (voted off)");
-                    players[0].setFrozen(true);
-                } 
-            }  
+                mostSuspicious.setFrozen(true);                
+            }
         }
     gameOver();//A boolean is returned but at the moment we are not doing anything with it
     }
@@ -54,9 +69,7 @@ public class BlueAstronaut extends Player implements Crewmate{
         {
             if(this.taskSpeed > 20 && this.numTasks > 0)
             {
-                System.out.println("This player with name " + this.getName()
-                + " has task speed of " + this.getTaskSpeed() + ". 2 tasks will be deducted from"
-                + " " + this.numTasks);
+
                 this.setNumTasks(this.numTasks - 2);
                 if(this.getNumTasks()==0)
                 {
@@ -82,7 +95,7 @@ public class BlueAstronaut extends Player implements Crewmate{
     @Override
     public String toString() 
     {
-        String result = super.toString() + "I have " + this.numTasks + " left over.";
+        String result = super.toString() + " I have " + this.numTasks + " tasks left over.";
         if(this.getSusLevel() > 15)
             return result.toUpperCase();
         else
