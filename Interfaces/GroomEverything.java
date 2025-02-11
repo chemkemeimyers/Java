@@ -12,6 +12,8 @@ public class GroomEverything{
         for(Groomable g: groomer)
         {
             g.groom();
+            g.pay();
+            System.out.println("Tip: " + Groomable.calculateTip(39.99, 20));
         }
     }
 }
