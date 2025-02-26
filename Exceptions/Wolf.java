@@ -1,4 +1,7 @@
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.io.File;
 public class Wolf extends Canine implements Comparable<Wolf>
 {
     protected int rank;
@@ -55,9 +58,32 @@ public class Wolf extends Canine implements Comparable<Wolf>
             new Wolf(10, 6),
             new Wolf(5, 9)
         };
-
-        System.out.println("Unsorted Pack: " + Arrays.toString(pack));
         Arrays.sort(pack);
+
+        File fileout = new File("SortedWolves.csv");
+
+        PrintWriter filePrint = null;
+
+        try{
+            filePrint = new PrintWriter(fileout);
+            for(Wolf wolf: pack)
+            {
+                filePrint.println(wolf.getRank() + "," + wolf.getSize());
+            }
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        finally{
+            if(filePrint != null)
+            {
+                filePrint.close();
+            }
+        }
+        System.out.println("Unsorted Pack: " + Arrays.toString(pack));
+        
         System.out.println("Sorted Pack: " + Arrays.toString(pack));
             }
 
