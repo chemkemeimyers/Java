@@ -27,19 +27,19 @@ public class Clinic{
             String[] lineContent = line.split(",");
             String petName  = lineContent[0];
             String petKind  =  lineContent[1];
-            String miceCaught = lineContent[2];
+            int miceCaught = Integer.parseInt(lineContent[2]);
             String timeIn = lineContent[3];
             //System.out.println("Consultation for " + petName + " the " + petKind + " at " + timeIn + ".\nWhat is the health of " + petName+"?\n");
 
             Scanner input = new Scanner(System.in);
             boolean successHealth = false;
-            int health = 0;
+            double health = 0;
 
             while(!successHealth)
             {
                 try{
                     System.out.println("Consultation for " + petName + " the " + petKind + " at " + timeIn + ".\nWhat is the health of " + petName+"?\n");
-                    health = input.nextInt();
+                    health = input.nextDouble();
                     successHealth = true;
                 }
                 catch(InputMismatchException e)
@@ -72,10 +72,24 @@ public class Clinic{
                 }
             }
 
-            if(!lineContent[1].equals("Cat") || !lineContent[1].equals("Dog"))
+            if(!petKind.equals("Cat") || !petKind.equals("Dog"))
                 throw new InvalidPetException();
+            
+            Pet thisPet = null;
 
-            speak();
+            if(petKind.equals("Cat"))
+            {
+                thisPet = new Cat(petName, health, painLevel, miceCaught);
+            }
+
+            if(petKind.equals("Dog"))
+            {
+                thisPet = new Dog(petName, health, painLevel);
+            }
+            
+            thisPet.speak();
+            
+            
         }
         scan.close();
     }
