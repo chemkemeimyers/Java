@@ -132,8 +132,6 @@ public class Clinic{
             index++;
         }
         scan.close();
-        
-
             return String.join("\n", treatmentRecords);
     }
     public boolean addToFile(String patientInfo)
