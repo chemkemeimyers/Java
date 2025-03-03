@@ -1,6 +1,7 @@
 import java.io.File;
-import java.util.Scanner;
+import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 public class Clinic{
     protected File patientFile;
     protected int day;
@@ -15,12 +16,28 @@ public class Clinic{
         this(file);
     }
 
-    public String nextDay(File f) throws FileNotFoundException
+    public String nextDay(File f) throws FileNotFoundException, InvalidPetException
     {
         Scanner scan = null;
-
+        
+        int lineCount = 0;
+        try 
+        {
+            scan = new Scanner(f);
+            
+            while(scan.hasNextLine())
+            {
+                scan.nextLine();
+                lineCount++;
+            }
+            scan.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        String[] treatmentRecords = new String[lineCount];
         scan = new Scanner(f);
-
+        int index = 0;
         while(scan.hasNextLine())
         {
             String line = scan.nextLine();
@@ -29,7 +46,6 @@ public class Clinic{
             String petKind  =  lineContent[1];
             int miceCaught = Integer.parseInt(lineContent[2]);
             String timeIn = lineContent[3];
-            //System.out.println("Consultation for " + petName + " the " + petKind + " at " + timeIn + ".\nWhat is the health of " + petName+"?\n");
 
             Scanner input = new Scanner(System.in);
             boolean successHealth = false;
@@ -53,8 +69,8 @@ public class Clinic{
             }
 
             boolean successPainLevel = false;
-            int painLevel = 0;
 
+            int painLevel = 0;
             while(!successPainLevel)
             {
                 try{
@@ -71,7 +87,6 @@ public class Clinic{
                     input.nextLine();
                 }
             }
-
             if(!petKind.equals("Cat") || !petKind.equals("Dog"))
                 throw new InvalidPetException();
             
@@ -88,9 +103,67 @@ public class Clinic{
             }
             
             thisPet.speak();
-            
-            
+
+            int treatResult = thisPet.treat();
+
+            String timeOut = addTime(timeIn, treatResult);
+
+            this.setDay(this.getDay()+1);
+
+            String DroolRateOrMiceCaught;
+            Cat thisCat = null;
+            Dog thisDog = null;
+
+            if(thisPet instanceof Cat)
+            {
+                thisCat = (Cat) thisPet;
+                DroolRateOrMiceCaught = Integer.toString(thisCat.getMiceCaught());
+            }
+            else
+            {
+                thisDog = (Dog) thisDog;
+                DroolRateOrMiceCaught = Double.toString(thisDog.getDroolRate());
+            }
+
+            String[] treatmentRecord = {petName, petKind,DroolRateOrMiceCaught
+            ,Integer.toString(this.getDay()), timeIn, timeOut, 
+            Double.toString(health), Integer.toString(painLevel) };
+            treatmentRecords[index] = String.join(",", treatmentRecord);
+            index++;
         }
         scan.close();
+        
+
+            return String.join("\n", treatmentRecords);
+    }
+    public boolean addToFile(String patientInfo)
+    {
+
+    }
+    public String addTime(String timeIn, int treatmentTime)
+    {        
+        int timeInInt = Integer.parseInt(timeIn);
+
+        //Extract hours and minutes from the string
+        int hours  = Integer.parseInt(timeIn.substring(0,2));
+        int minutes = Integer.parseInt(timeIn.substring(2,4));
+
+        //Add the activity time (in minutes)
+        minutes+=treatmentTime;
+
+        //Handle overflow of minutes into hours
+        hours += minutes/60;
+        minutes = minutes%60;
+
+        return String.format("%02d%02d",hours,minutes);
+    
+    }
+    public void setDay(int newDay)
+    {
+        day = newDay;
+    }
+    public int getDay()
+    {
+        return day;
     }
 }
