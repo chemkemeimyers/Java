@@ -65,7 +65,7 @@ public class Clinic{
                     health = input.nextDouble();
                     successHealth = true;
                 }
-                catch(InputMismatchException e)
+                catch(Exception e)
                 {
                     System.out.println("Consultation for " + petName + " the " + petKind + " at " + timeIn + ".\nWhat is the health of " + petName+"?\n");
                 }
@@ -85,7 +85,7 @@ public class Clinic{
                     painLevel = input.nextInt();
                     successPainLevel = true;
                 }
-                catch(InputMismatchException e)
+                catch(Exception e)
                 {
                     System.out.println("On a scale of 1 to 10, how much pain is " + petName +" in right now?\n");
                 }
