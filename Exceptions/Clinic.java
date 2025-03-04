@@ -1,9 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
-import java.util.InputMismatchException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 public class Clinic{
     protected File patientFile;
@@ -214,10 +212,10 @@ public class Clinic{
 
             
             try{
-                FileWriter writer = new FileWriter(patientInfo);
+                PrintWriter writer = new PrintWriter(patientInfo);
                 {
                     for(String line: fileEntriesWithNewLine)
-                        writer.write(line + "\n");
+                        writer.println(line);
                 }
                 writer.close();
                 return true;
@@ -230,10 +228,10 @@ public class Clinic{
         else
         {
             try{
-                FileWriter writer = new FileWriter(patientInfo);
+                PrintWriter writer = new PrintWriter(patientInfo);
                 {
                     for(String line: fileEntries)
-                        writer.write(line + "\n");
+                        writer.println(line);
                 }
                 writer.close();
                 return true;
