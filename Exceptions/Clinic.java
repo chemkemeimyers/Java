@@ -1,5 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 public class Clinic{
@@ -14,6 +17,12 @@ public class Clinic{
     {
         File file = new File(fileName);
         this(file);
+    }
+
+    public String nextDay(String fileName) throws FileNotFoundException, InvalidPetException
+    {
+        File file = new File(fileName);
+        nextDay(file);
     }
 
     public String nextDay(File f) throws FileNotFoundException, InvalidPetException
@@ -136,6 +145,105 @@ public class Clinic{
     }
     public boolean addToFile(String patientInfo)
     {
+        Scanner scan = null;
+        
+        int lineCount = 0;
+        try 
+        {
+            scan = new Scanner(patientFile);
+            
+            while(scan.hasNextLine())
+            {
+                scan.nextLine();
+                lineCount++;
+            }
+            scan.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+
+        String[] fileEntries = new String[lineCount];
+        int  index = 0;
+        try 
+        {
+            scan = new Scanner(patientFile);
+            
+            while(scan.hasNextLine())
+            {
+                fileEntries[index] = scan.nextLine();
+            }
+            scan.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+        //split patient info entries and store them in an array
+        int count = 0;
+        for(String item: patientInfo.split(","))
+            count ++;
+        
+        String[] patientInfoItems = new String[count];
+        for(int i = 0; i <= count; i++)
+            patientInfoItems[i] = patientInfo.split(",")[i];
+
+        boolean patientOnFile = false;
+
+        //search for the name of a pet in  the file entries
+        for(int i = 0; i< fileEntries.length; i++)//for every line entry
+        {
+            if(patientInfoItems[0].equals(fileEntries[i].split(",")[0]))
+            {
+                //The patient exists in the file
+                patientOnFile = true;
+                for(int j = 3; j<= fileEntries[i].split(",").length; j++)
+                {
+                    fileEntries[i].split(",")[j] = patientInfoItems[j];
+                }
+            }
+        }
+
+        if(!patientOnFile)
+        {
+            String [] fileEntriesWithNewLine = new String[lineCount+1];
+            for(int i = 0; i<= lineCount; i++)
+            {
+                fileEntriesWithNewLine[i] = fileEntries[i];
+            }
+            fileEntriesWithNewLine[lineCount+1] = patientInfo;
+
+            
+            try{
+                FileWriter writer = new FileWriter(patientInfo);
+                {
+                    for(String line: fileEntriesWithNewLine)
+                        writer.write(line + "\n");
+                }
+                writer.close();
+                return true;
+            }
+            catch(IOException e)
+            {
+                System.out.println("An error occurred when writing to file object " + e.getMessage());
+            }
+        }
+        else
+        {
+            try{
+                FileWriter writer = new FileWriter(patientInfo);
+                {
+                    for(String line: fileEntries)
+                        writer.write(line + "\n");
+                }
+                writer.close();
+                return true;
+            }
+            catch(IOException e)
+            {
+                System.out.println("An error occurred when writing to file object " + e.getMessage());
+            }
+        }
+        return false;
 
     }
     public String addTime(String timeIn, int treatmentTime)
