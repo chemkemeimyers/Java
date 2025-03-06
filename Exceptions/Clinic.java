@@ -20,7 +20,8 @@ public class Clinic{
     public String nextDay(String fileName) throws FileNotFoundException, InvalidPetException
     {
         File file = new File(fileName);
-        nextDay(file);
+        String result = nextDay(file);
+        return result;
     }
 
     public String nextDay(File f) throws FileNotFoundException, InvalidPetException
