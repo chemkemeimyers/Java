@@ -95,7 +95,7 @@ public class Clinic{
                     input.nextLine();
                 }
             }
-            if(!petKind.equals("Cat") || !petKind.equals("Dog"))
+            if(!petKind.equals("Cat") && !petKind.equals("Dog"))
                 throw new InvalidPetException();
             
             Pet thisPet = null;
