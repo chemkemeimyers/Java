@@ -52,7 +52,8 @@ public class Clinic{
             String[] lineContent = line.split(",");
             String petName  = lineContent[0];
             String petKind  =  lineContent[1];
-            int miceCaught = Integer.parseInt(lineContent[2]);
+            double miceCaughtDouble = Double.parseDouble(lineContent[2]);
+            int miceCaught = (int)miceCaughtDouble;
             String timeIn = lineContent[3];
 
             Scanner input = new Scanner(System.in);
