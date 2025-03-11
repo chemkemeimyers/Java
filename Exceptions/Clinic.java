@@ -13,8 +13,7 @@ public class Clinic{
     }
     public Clinic(String fileName)
     {
-        File file = new File(fileName);
-        this(file);
+        this(new File(fileName));
     }
 
     public String nextDay(String fileName) throws FileNotFoundException, InvalidPetException
