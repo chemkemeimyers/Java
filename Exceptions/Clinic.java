@@ -172,6 +172,7 @@ public class Clinic{
             while(scan.hasNextLine())
             {
                 fileEntries[index] = scan.nextLine();
+                index+=1;
             }
             scan.close();
             
@@ -184,7 +185,7 @@ public class Clinic{
             count ++;
         
         String[] patientInfoItems = new String[count];
-        for(int i = 0; i <= count; i++)
+        for(int i = 0; i < count; i++)
             patientInfoItems[i] = patientInfo.split(",")[i];
 
         boolean patientOnFile = false;
@@ -206,7 +207,7 @@ public class Clinic{
         if(!patientOnFile)
         {
             String [] fileEntriesWithNewLine = new String[lineCount+1];
-            for(int i = 0; i<= lineCount; i++)
+            for(int i = 0; i< lineCount; i++)
             {
                 fileEntriesWithNewLine[i] = fileEntries[i];
             }
