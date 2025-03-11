@@ -193,15 +193,26 @@ public class Clinic{
         //search for the name of a pet in  the file entries
         for(int i = 0; i< fileEntries.length; i++)//for every line entry
         {
-            if(patientInfoItems[0].equals(fileEntries[i].split(",")[0]))
+            String[] entryParts = fileEntries[i].split(",");
+            if(patientInfoItems[0].equals(entryParts[0]))
             {
                 //The patient exists in the file
                 patientOnFile = true;
-                for(int j = 3; j<= fileEntries[i].split(",").length; j++)
+                for(int j = 3; j< entryParts.length; j++)
                 {
-                    fileEntries[i].split(",")[j] = patientInfoItems[j];
+                    if(j==3)
+                    {
+                        entryParts[j] = "Day " + patientInfoItems[j];
+                    }
+                    else
+                    {
+                         entryParts[j] = patientInfoItems[j];
+                    }
+
+                   
                 }
             }
+            fileEntries[i] = String.join(",", entryParts);
         }
 
         if(!patientOnFile)
@@ -211,11 +222,12 @@ public class Clinic{
             {
                 fileEntriesWithNewLine[i] = fileEntries[i];
             }
-            fileEntriesWithNewLine[lineCount+1] = patientInfo;
+            patientInfo.split(",")[3] = "Day " + patientInfo.split(",")[3];
+            fileEntriesWithNewLine[lineCount] = patientInfo;
 
             
             try{
-                PrintWriter writer = new PrintWriter(patientInfo);
+                PrintWriter writer = new PrintWriter(patientFile);
                 {
                     for(String line: fileEntriesWithNewLine)
                         writer.println(line);
@@ -231,7 +243,7 @@ public class Clinic{
         else
         {
             try{
-                PrintWriter writer = new PrintWriter(patientInfo);
+                PrintWriter writer = new PrintWriter(patientFile);
                 {
                     for(String line: fileEntries)
                         writer.println(line);
