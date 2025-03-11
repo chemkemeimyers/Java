@@ -130,7 +130,7 @@ public class Clinic{
             }
             else
             {
-                thisDog = (Dog) thisDog;
+                thisDog = (Dog) thisPet;
                 DroolRateOrMiceCaught = Double.toString(thisDog.getDroolRate());
             }
 
@@ -251,8 +251,9 @@ public class Clinic{
         int timeInInt = Integer.parseInt(timeIn);
 
         //Extract hours and minutes from the string
-        int hours  = Integer.parseInt(timeIn.substring(0,2));
-        int minutes = Integer.parseInt(timeIn.substring(2,4));
+        int time = Integer.parseInt(timeIn);
+        int hours  = time/100;
+        int minutes = time %100;
 
         //Add the activity time (in minutes)
         minutes+=treatmentTime;
