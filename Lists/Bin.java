@@ -1,3 +1,7 @@
+
+
+
+
 public class Bin<T>{
     private T content;
 
@@ -14,5 +18,16 @@ public class Bin<T>{
     public T getContent()
     {
         return content;
+    }
+
+    public static void main(String[] args) {
+        {
+            Bin<String> test = new Bin<>("I'm a basic String");
+            test.setContent("short and stout");
+            test.setContent("element is my handle");
+            test.setContent("getContent is my spout");
+            String upper = test.getContent().toUpperCase();
+            System.out.println(upper);
+        }
     }
 }
