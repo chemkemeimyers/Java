@@ -1,5 +1,6 @@
 
 import java.util.LinkedList;
+import javax.lang.model.util.ElementScanner14;
 
 public class GenericLinkedList<E> {
     private class Node<E>{
@@ -116,6 +117,24 @@ public class GenericLinkedList<E> {
         return result.data;
     }
 
+    public E getElementAtLocation(int n)
+    {
+        if(isEmpty())
+            return null;
+
+        Node<E> current = head;
+        int count = 0;
+
+        while(current.next!=null && count <= n-1)
+        {
+            current = current.next;
+            count+=1;
+        }
+        if(count == n-1)
+            return current.data;
+        else
+            return null;
+    }
     public static void main(String[] args) {
         {
             GenericLinkedList<String> favBabySongs = new GenericLinkedList<String>();
@@ -124,6 +143,9 @@ public class GenericLinkedList<E> {
             favBabySongs.addToFront("Itsy Bitsy Spider");
             favBabySongs.addToRear("Twinkle, Twinkle Little Star");
             favBabySongs.addToFront("Wheels on the Bus");
+            System.out.println(favBabySongs.toString());
+            favBabySongs.removeFromFront();
+            favBabySongs.removeFromRear();
             System.out.println(favBabySongs.toString());
             System.out.println(favBabySongs.contains("Humpty Dumpty"));
             System.out.println(favBabySongs.contains("Baby Shark"));
