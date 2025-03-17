@@ -24,20 +24,24 @@ public class Dog extends Pet{
     @Override
     public int treat()
     {
+        double origDroolRate = this.getDroolRate();
+        int origPainLevel = this.getPainLevel();
+        double origHealth = this.getHealth();
+
         super.heal();
         try
         {
-            if(this.droolRate < 3.5)
+            if(origDroolRate < 3.5)
             {
-                return (int) (painLevel*2/health);
+                return (int) (origPainLevel*2/origHealth);
             }
-            else if(3.5 <= this.droolRate && this.droolRate <= 7.5)
+            else if(3.5 <= origDroolRate && origDroolRate <= 7.5)
             {
-                return (int) (painLevel/health);
+                return (int) (origPainLevel/origHealth);
             } 
             else 
             {
-                return (int) (painLevel/(health * 2));
+                return (int) (origPainLevel/(origHealth * 2));
             }
         }
         catch(ArithmeticException e)
