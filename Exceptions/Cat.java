@@ -1,3 +1,5 @@
+
+
 public class Cat extends Pet{
     protected int miceCaught;
 
@@ -24,18 +26,20 @@ public class Cat extends Pet{
     @Override
     public int treat()
     {
-        super.heal();
-        if(miceCaught < 4)
+       int result;
+        if(this.getMiceCaught() < 4)
         {
-            return (int) Math.ceil((painLevel*2)/health);
+            result =  (int) Math.ceil((this.getPainLevel()*2)/this.getHealth());
         }
-        else if(miceCaught >= 4 && miceCaught <= 7)
+        else if(this.getMiceCaught() >= 4 && this.getMiceCaught() <= 7)
         {
-            return (int) Math.ceil(painLevel/health);
+            return (int) Math.ceil(this.getPainLevel()/this.getHealth());
         }
         else{
-            return (int) Math.ceil(painLevel/(health*2));
+            return (int) Math.ceil(this.getPainLevel()/(this.getHealth()*2));
         }
+        super.heal();
+        return result;
     }
 
     @Override
