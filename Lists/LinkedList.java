@@ -38,9 +38,27 @@ public class LinkedList<E>{
 
     public void add(int index, E data)
     {
-        if(index < 0 || index >= size)
+        //Handle case where we cannot add an element at the specified index
+        if(index < 0 || index > size)
         {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ". Cannot add element at the specified index.");
         }
+        //Add element at specified index
+
+        if(index == 0)
+        {
+            head = new Node<E>(data, null);
+        }
+        else
+        {
+            Node<E> current = head;
+            for(int i=0; i < index-1; i++)
+            {
+                current = current.next;
+            }
+            current.next = new Node<E>(data, current.next);
+            
+        }
+        size++;
     }
 }
