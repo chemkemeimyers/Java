@@ -61,4 +61,25 @@ public class LinkedList<E>{
         }
         size++;
     }
+
+    public void add(E data)
+    {
+        add(size, data);
+    }
+
+    public boolean contains(Object O)
+    {
+        E data = (E)O;
+        if(isEmpty())
+            return false;
+        
+        Node<E> current = head;
+        while(current != null)
+        {
+            if(current.data.equals(data))
+                return true;
+            current = current.next;
+        }
+        return false;
+    }
 }
