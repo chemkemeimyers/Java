@@ -27,12 +27,20 @@ public class LinkedList<E>{
 
     public boolean isEmpty()
     {
-        return head = null && size = 0;
+        return (head == null) && (size == 0);
     }
 
     public void clear()
     {
        head = null;
        size = 0;
+    }
+
+    public void add(int index, E data)
+    {
+        if(index < 0 || index >= size)
+        {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ". Cannot add element at the specified index.");
+        }
     }
 }
