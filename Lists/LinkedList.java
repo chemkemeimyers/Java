@@ -112,4 +112,31 @@ public class LinkedList<E>{
 
         return -1;
     }
+
+    public E remove(int index)
+    {
+        if(index < 0 || index >= size)
+        {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ". Cannot remove element at the specified index.");
+        }
+        Node<E> current = head;
+
+        if(index == 0)
+        {
+            head = head.next;
+        }
+        else
+        {
+            Node<E> previousNode = head;
+            for(int i = 0; i < index - 1; i++)
+            {   
+                previousNode = previousNode.next;
+            }
+            current = previousNode.next;
+            previousNode.next = current.next;
+        }
+        
+        size--;
+        return current.data;
+    }
 }
