@@ -192,4 +192,28 @@ public class LinkedList<E>{
 
         return oldData;
     }
+
+    //Method that returns a string representation of a generic linked list in Java
+    @Override
+    public String toString()
+    {
+        String result = "[";
+        //Return an empty string if the list is empty
+        if(head == null)
+        {
+            return "[]";
+        }
+
+        //return items in the list for a populated list
+        Node<E> current = head;
+
+        while(current.next != null)
+        {
+            result += String.valueOf(current.data) + ", ";
+            current = current.next;
+        }
+
+        result += String.valueOf(current.data) + "]";
+        return result;
+    }
 }
