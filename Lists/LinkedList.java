@@ -172,4 +172,24 @@ public class LinkedList<E>{
         }
         return false;
     }
+    //Method that updates the value at an indes and returns the old data object
+    public E set(int index, E newData)
+    {
+        //Return error if index < 0 or greater than the size of the linked list
+        if(index < 0 || index >= size)
+        {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size + ". Cannot replace element at the specified index.");
+        }
+        Node<E> current = head;
+        for(int i = 0; i< index; i++)
+        {
+            current = current.next;
+        }
+
+        E oldData = current.data;
+
+        current.data = newData;
+
+        return oldData;
+    }
 }
