@@ -139,4 +139,37 @@ public class LinkedList<E>{
         size--;
         return current.data;
     }
+
+    public boolean remove(Object O)
+    {
+        //decrement size if item was removed
+        if(head == null)
+        {
+            return false;
+        }
+
+        //Handle removal of head separetely
+        if(head.data.equals(O))
+        {
+            head = head.next;
+            size--;
+            return true;
+        }
+
+        Node<E> current = head;
+        Node<E> previous = null;
+
+        while(current!=null)
+        {
+            if(current.data.equals(O))
+            {
+                previous.next = current.next;
+                size--;
+                return true;
+            }
+            previous = current;
+            current = current.next;
+        }
+        return false;
+    }
 }
