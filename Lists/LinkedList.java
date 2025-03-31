@@ -1,3 +1,6 @@
+
+import java.util.Objects;
+
 public class LinkedList<E>{
 
     private class Node<E>{
@@ -76,7 +79,7 @@ public class LinkedList<E>{
         Node<E> current = head;
         while(current != null)
         {
-            if(current.data.equals(O))
+            if(Objects.equals(current.data, O))
                 return true;
             current = current.next;
         }
@@ -103,14 +106,16 @@ public class LinkedList<E>{
     {
         Node<E> current = head;
         int index = 0;
-        while(current != null)
-        {
-            if(current.data.equals(O))
-                return index;
-            current = current.next;
-            index += 1;
-        }
 
+        while(current!=null)
+        {
+            if((O == null && current.data == null) || (O !=null && Objects.equals(current.data, O)))
+            {
+             return index;
+            }
+            current = current.next;
+            index+=1;
+        }
         return -1;
     }
 
@@ -151,7 +156,7 @@ public class LinkedList<E>{
         }
 
         //Handle removal of head separetely
-        if(head.data.equals(O))
+        if(Objects.equals(head.data, O))
         {
             head = head.next;
             size--;
@@ -163,7 +168,7 @@ public class LinkedList<E>{
 
         while(current!=null)
         {
-            if(current.data.equals(O))
+            if(Objects.equals(current.data, O))
             {
                 previous.next = current.next;
                 size--;
