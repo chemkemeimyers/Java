@@ -1,4 +1,4 @@
-import javafx.application.application;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -22,11 +22,11 @@ public class HelloWorldAnon extends Application{
             public void handle(ActionEvent event){
                 System.out.println("Hello World");
             }
-        }
+        };
         btn.setOnAction(handler);
 
         StackPane root = new StackPane();
-        root.getCHildren().add(btn);
+        root.getChildren().add(btn);
 
         Scene scene = new Scene(root, 300, 300);
         mainStage.setScene(scene);
