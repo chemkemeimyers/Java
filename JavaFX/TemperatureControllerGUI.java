@@ -41,7 +41,7 @@ public class TemperatureControllerGUI extends Application{
                 double temperature = Double.parseDouble(temperatureString);
                 String scaleFrom = pickScaleFrom.getValue();
                 String scaleTo = pickScaleTo.getValue();
-                double conversionResult = convert(scaleFrom, scales, temperature);
+                double conversionResult = convert(scaleFrom, scaleTo, temperature);
                 result.setText(String.format("%.2f", conversionResult));
 
             }catch(NumberFormatException e)
@@ -52,46 +52,47 @@ public class TemperatureControllerGUI extends Application{
                 a.setContentText("That is not a valid temperature");
                 a.showAndWait();
             }
-        };)
+        });
         
         HBox input = new HBox();
         input.setAlignment(Pos.CENTER);
-        input.getChildren.addAll(inputValue, userInput);
+        input.getChildren().addAll(inputValue, userInput);
 
 
-        Hbox scales = new HBox();
+        HBox scales = new HBox();
         scales.setAlignment(Pos.CENTER);
         scales.setSpacing(10);
         scales.getChildren().add(from);
-        scales.getChildren().add(pickScaleFrom)
+        scales.getChildren().add(pickScaleFrom);
         scales.getChildren().add(to);
         scales.getChildren().add(pickScaleTo);
 
         VBox root = new VBox();
-        root.setAlignment(Pos.center);
+        root.setAlignment(Pos.CENTER);
         root.setSpacing(10);
-        root.getChildren.addAll(input, scales, convertButton, result);
+        root.getChildren().addAll(input, scales, convertButton, result);
 
         Scene scene = new Scene(root, 400, 400);
         stage.setTitle("Temperature COnverter");
         stage.setScene(scene);
         stage.show();
 
-        private double convert(String from, String to, double value)
+        
+    }
+    private double convert(String from, String to, double value)
+    {
+        double converted = 0;
+        if(from.equals(to))
         {
-            double converted = 0;
-            if(from.equals(to))
-            {
-                converted = value;
-            }
-            else if(from.charAt(0) == 'F')
-            {
-                converted = (value - 32) * (5/9);
-            }
-            else{
-                converted = value * (9/5) + 32;
-            }
-            return converted;
+            converted = value;
         }
+        else if(from.charAt(0) == 'F')
+        {
+            converted = (value - 32) * (5.0/9);
+        }
+        else{
+            converted = value * (9.0/5) + 32;
+        }
+        return converted;
     }
 }
