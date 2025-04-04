@@ -53,6 +53,11 @@ public class TemperatureControllerGUI extends Application{
                 a.showAndWait();
             }
         };)
+        
+        HBox input = new HBox();
+        input.setAlignment(Pos.CENTER);
+        input.getChildren.addAll(inputValue, userInput);
+
 
         Hbox scales = new HBox();
         scales.setAlignment(Pos.CENTER);
