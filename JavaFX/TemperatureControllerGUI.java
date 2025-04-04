@@ -70,7 +70,7 @@ public class TemperatureControllerGUI extends Application{
         VBox root = new VBox();
         root.setAlignment(Pos.center);
         root.setSpacing(10);
-        root.getChildren.addAll(inout, scales, convertButton, result);
+        root.getChildren.addAll(input, scales, convertButton, result);
 
         Scene scene = new Scene(root, 400, 400);
         stage.setTitle("Temperature COnverter");
