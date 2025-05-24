@@ -14,5 +14,10 @@ public class ContainerGenerics<T> {
         return t;
     }
 
-    
+    public static void main(String[] args) {
+
+        ContainerGenerics<String> c1 = new ContainerGenerics<String>();
+        c1.set("Hello!");
+        String s = c1.get();
+    }
 }
