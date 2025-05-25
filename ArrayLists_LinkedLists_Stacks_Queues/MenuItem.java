@@ -1,3 +1,5 @@
+
+
 public class MenuItem implements  Comparable<MenuItem> {
     //Menu item class that implements the comparable interface
 
@@ -39,6 +41,14 @@ public class MenuItem implements  Comparable<MenuItem> {
         if(item1.compareTo(item2) < 0)
         {
             System.out.println(item2.getName() + " costs more than " + item1.getName());
+        }
+        else if(item1.compareTo(item2) > 0)
+        {
+            System.out.println(item1.getName() + " costs more than " + item2.getName());
+        }
+        else
+        {
+            System.out.println(item1.getName() + " costs the same as " + item2.getName());
         }
     }
 }
