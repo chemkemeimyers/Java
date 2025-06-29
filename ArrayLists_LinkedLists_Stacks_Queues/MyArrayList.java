@@ -1,6 +1,7 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 
-Public class MyArrayList<T>{
+public class MyArrayList<T>{
     private Object[] backingArray;
     private int size = 0;
     private static final int INITIAL_CAPACITY = 10;
@@ -20,7 +21,7 @@ Public class MyArrayList<T>{
     }
 
     //Add element at end
-    public void addToEnd(T element)
+    public void add(T element)
     {
         CapacityPresentForNewElement();
         backingArray[size] = element;
@@ -59,7 +60,21 @@ Public class MyArrayList<T>{
         backingArray[size-1]=null;
         size--;
 
-        return removed
+        return removed;
+    }
+
+    @SuppressWarnings("unchecked")
+    public T remove()
+    {
+       if (size == 0)
+       {
+        throw new IllegalStateException("List is empty");
+       }
+    
+        size--;
+        T element = (T) backingArray[size];
+        backingArray[size] = null;
+        return element;
     }
 
     public int size()
@@ -71,6 +86,29 @@ Public class MyArrayList<T>{
     @Override
     public String toString()
     {
-        return Arrays.toString(Arrays.copyOf(backingArray, size))
+        return Arrays.toString(Arrays.copyOf(backingArray, size));
+    }
+
+        public static void main(String[] args)
+    {
+        MyArrayList<Integer> list  = new MyArrayList<>();
+
+        list.add(1);
+        list.add(2);
+        list.add(5);
+        list.add(6);
+
+        System.out.println(list);
+
+        System.out.println("Call Remove on list...");
+        list.remove();
+        System.out.println(list);
+
+        System.out.println("Call Remove on 1 list...");
+        list.remove(1);
+        System.out.println(list);
+
+
     }
 }
+
